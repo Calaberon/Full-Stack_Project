@@ -1,5 +1,5 @@
 window.addEventListener('load', () => {
-    const url = 'https://deployment-hw1o.onrender.com';
+    const url = 'https://full-stack-deploy-api.onrender.com/tasks';
     const form = document.querySelector("#new-task-form");
     const input = document.querySelector ("#new-task-input");
     const listEl = document.querySelector("#tasks");

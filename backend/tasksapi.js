@@ -20,6 +20,7 @@ const pool = new Pool({
 });
 const sql = postgres(process.env.DATABASE_URL);
 app.use(express.static("public"));
+
 //GET ALL
 app.get('/tasks', async (req, res) => {
     try {
@@ -31,6 +32,78 @@ app.get('/tasks', async (req, res) => {
         res.send(err);
     }
 });
+
+//GET 1
+app.get('/tasks/:id', async (res, req) => {
+    try {
+        const { id } = req.params;
+        const { rows } = await pool.query('SELECT * FROM tasks');
+        res.send(rows[id]);
+    } catch(err) {
+        res.send(err);
+        exit(500);
+    }
+})
+
+//POST
+app.post('/tasks', async (req, res) => {
+    try {
+        const { taskname, body, realm_id } = req.body;
+        const { rows } = await pool.query('INSERT INTO tasks (taskname, body, realm_id) VALUES ($1, $2, $3) RETURNING *', [taskname, body, realm_id]);
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        res.send(rows);
+    } catch(err) {
+        res.send(err);
+        exit(500);
+    }
+});
+
+//PUT
+app.put('/tasks/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { taskname, body, realm_id } = req.body;
+        const { rows } = await pool.query('UPDATE tasks SET taskname = $1, body = $2, realm_id = $3 WHERE id = $4', [taskname, body, realm_id, id]);
+        res.send(rows);
+    } catch(err) {
+        res.send(err);
+        exit(500);
+    }
+});
+
+//PATCH
+app.patch('/tasks/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        let { body } = req;
+        for (key in body) {
+            await pool.query(`UPDATE tasks SET ${ key } = '${ body[key] }' WHERE id = ${ id }`);
+        }
+        const { newTask } = await pool.query(`SELECT * FROM tasks WHERE id = ${ id }`);
+        res.send(newPet.rows);
+    } catch(err) {
+        res.send(err);
+        exit(500);
+    }
+});
+
+//DELETE
+app.delete('/tasks/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { taskname, body, realm_id } = body.req;
+        const { rows } = await pool.query('DELETE FROM tasks WHERE id = $1', [id]);
+        res.send(rows);
+    } catch(err) {
+        res.send(err);
+        exit(500);
+    }
+});
+
+
+
+
 
 // app.get('/tasks', async (req, res) => {
 //     try {
