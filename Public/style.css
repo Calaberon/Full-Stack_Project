@@ -53,6 +53,7 @@ input, button {
     padding: 1rem;
     border-radius: 1rem;
     margin-right: 1rem;
+    margin-left: 1rem;
     color: var(--light);
     font-size: 1.25rem;
 }
@@ -163,4 +164,66 @@ main {
 
 .task .actions .delete {
     color: crimson;
+}
+
+.delete-btn{
+    background-color: crimson;
+    color: whitesmoke;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.task-item-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--darkest);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    width: 600px;
+    margin-bottom: 30px;
+    /* border: 1px solid white; */
+    padding: 10px;
+}
+
+.task-item-realm {
+    /* border: 1px solid white; */
+}
+
+.task-item-name {
+    /* border: 1px solid white; */
+    width: 500px;
+    text-align: center;
+}
+
+.task-item-btns {
+    /* border: 1px solid white; */
+}
+
+#new-task-form{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    
+}
+
+#todo-realm{
+    background-color: crimson;
+    color: var(--light);
+    border-radius: 10px;
+    cursor: pointer;
+    border: crimson;
+}
+
+.task-item-realm {
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#tasks {
+    display: flex;
+    flex-direction: column-reverse;
 }
