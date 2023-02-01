@@ -1,21 +1,40 @@
-window.addEventListener('load', () => {
+// window.addEventListener('load', () => {
     const taskUrl = 'https://full-stack-deploy-api.onrender.com/tasks';
     
-    const postTask = {
-        method: 'GET',
-        url: taskUrl,
-        params: { taskname, body, realm_id },
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    const postRequest = fetch('/tasks', postTask)//////////////************************Post request */
+    // const params = { taskname, body, realm_id };
+    // const taskInput
+    // const postTask = {
+    //     method: 'POST',
+    //     url: taskUrl,
+    //     // params: { 'taskname', 'body', 'realm_id' },
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(postRequest.value)
+    // }
+    // const postRequest = fetch(taskUrl, postTask)//////////////************************Post request */
     const form = document.querySelector("#new-task-form");
-    const input = document.querySelector ("#new-task-input");
     const listEl = document.querySelector("#tasks");
-
-    form.addEventListener('submit', (e) => {
+    
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const input = document.querySelector ("#new-task-input").value;
+        try{
+            const postRequest = await fetch(taskUrl, { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({input})
+            }) .then((response)=>response.json())
+        } catch(err) {
+            console.log(err.message)
+        }
+    })
+
+              
+               
+
         const task = input.value;
         if (!task){
             alert("Please enter a task");
@@ -34,7 +53,7 @@ window.addEventListener('load', () => {
         taskInputEl.classList.add("text");
         taskInputEl.type = "text";///////////*****************************************this is the type of input */
         taskInputEl.value = task;////////////*****************************************this is the input value */
-        postRequest.value = task;
+        // postRequest.value = task;
         taskInputEl.setAttribute("readonly", "readonly");
         taskContentEl.appendChild(taskInputEl);
 
@@ -74,8 +93,8 @@ window.addEventListener('load', () => {
         });
 
         // listEl.appendChild(taskEl);
-    })    
-})
+    // })    
+// })
 
 // window.addEventListener('load', () => {
 //     const taskUrl = 'https://full-stack-deploy-api.onrender.com/tasks';
