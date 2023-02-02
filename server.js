@@ -74,9 +74,9 @@ app.route('/tasks/:id')
         }
     });
 
-app.use('/', (req, res) => {
-    res.status(400).send('Bad Request: Invalid Route')
-})
+// app.use('/', (req, res) => {
+//     res.status(400).send('Bad Request: Invalid Route')
+// })
 
 app.listen(PORT, function(){
     console.log(`Server listening on port: ${PORT}`);
