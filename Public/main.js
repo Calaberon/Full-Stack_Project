@@ -1,7 +1,7 @@
 const getTasks = async () => {
     const response = await fetch(`${API_URL}/tasks`)
     const data = await response.json()
-    return data
+    createTodoList(data)
 }
 
 const addTask = async (realmID, description) => {
@@ -20,7 +20,7 @@ const addTask = async (realmID, description) => {
     const response = await fetch(`${API_URL}/tasks`, options)
     const data = await response.json()
     if (data.validation) {
-        createTodoList()
+        getTasks()
     }
 }
 
@@ -32,7 +32,7 @@ const deleteTask = async (taskID) => {
     const response = await fetch(`${API_URL}/tasks/${taskID}`, options)
     const data = await response.json()
     if (data.validation) {
-        createTodoList()
+        getTasks()
     }
 }
 
@@ -71,8 +71,7 @@ const setRealmColor = (id) => {
     return colorObj[id]
 }
 
-const createTodoList = async () => {
-    const data = await getTasks()
+const createTodoList = async (data) => {
     const tasksContainer = document.getElementById('tasks')
     tasksContainer.innerHTML = ''
 
@@ -107,15 +106,11 @@ const createTodoList = async () => {
     }
 }
 
-const API_URL = 'https://fullstackdeployapi.onrender.com';
+const API_URL = '';
 
-createTodoList()
+getTasks()
 
-const form = document.querySelector("#new-task-form");
-const input = document.querySelector ("#new-task-input");
-const listEl = document.querySelector("#tasks");
 const addNewTaskBtn = document.querySelector('#new-task-submit')
-
 addNewTaskBtn.addEventListener('click', (e) => {
     e.preventDefault()
     const realmSelect = document.getElementById('todo-realm')
