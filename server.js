@@ -11,7 +11,7 @@ const pool = new Pool({
     
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 //GET ALL
 app.route('/tasks')
